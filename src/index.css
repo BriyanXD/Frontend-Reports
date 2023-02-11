@@ -1,0 +1,13 @@
+.warning{
+    background-color: rgb(255, 211, 130);
+}
+.danger{
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+.new{
+    background-color: rgb(152, 194, 250);
+}
+.hight{
+    background-color: rgb(106, 255, 106)
+}
