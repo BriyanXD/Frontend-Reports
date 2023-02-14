@@ -8,9 +8,6 @@ export interface Product{
     unit: string;
 }
 
-export type NProduct = Omit<Product, 'id'>
-
-
 export interface ProductState {
     productCount:number;
     products:Product[];
@@ -20,4 +17,24 @@ export interface ProductState {
     error:boolean;
     errorCreated:boolean;
     deleted:0
+}
+
+export type NProduct = Omit<Product, 'id'>
+
+export interface Sale{
+    id: number;
+    quantity: number;
+    total: number;
+    createdAt: Date;
+    creationTime: Date;
+    productId: number;
+    product?:{
+        name:string;
+        price:number;
+        category:string;
+    }
+}
+
+export interface SaleState {
+    sales: Sale[]
 }

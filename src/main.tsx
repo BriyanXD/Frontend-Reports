@@ -6,12 +6,17 @@ import ContainerProduct from './components/products/containerProduct/ContainerPr
 import { ProductProvider } from './context/product/ProductProvider'
 import ToolProduct from './components/products/toolsProduct/ToolsProduct'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import ContainerSale from './components/sales/ContainerSale/ContainerSale'
+import ToolSale from './components/sales/ToolsSale/ToolSale'
+import { SaleProvider } from './context/sale/SaleProvider'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Navigation/>
     <ProductProvider>
+    <SaleProvider>
+
     <Routes>
         <Route path='/' element={
           <>
@@ -26,7 +31,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }/>
         <Route path='ventas' element={
           <>
-            <h1>Ventas</h1>
+            <ToolSale/>
+            <ContainerSale/>
           </>
         }/>
         <Route path='*' element={
@@ -35,6 +41,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           </>
         }/>
     </Routes>
+    </SaleProvider>
     </ProductProvider>
     </BrowserRouter>
   </React.StrictMode>,
