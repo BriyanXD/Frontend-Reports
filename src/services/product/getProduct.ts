@@ -1,7 +1,8 @@
 import {Product} from "../../../types"
+import {URL} from "../../config";
 
 const getAllProducts = ():Promise<Product[]> => {
-    return fetch("http://localhost:3001/product",{method:"GET"})
+    return fetch(`${URL}/product`,{method:"GET"})
     .then(response => response.json())
 }
 

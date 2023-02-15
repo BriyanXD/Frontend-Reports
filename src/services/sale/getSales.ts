@@ -1,7 +1,8 @@
 import { Sale } from "../../../types"
+import {URL} from "../../config";
 
 const getSales = ():Promise<Sale[]> => {
-     return fetch("http://localhost:3001/sale",{method:"GET"})
+     return fetch(`${URL}/sale`,{method:"GET"})
     .then(response => response.json())
 }
 

@@ -1,7 +1,8 @@
 import { Product, NProduct } from "../../../types";
+import {URL} from "../../config";
 
 const postNewProduct = (product: NProduct):Promise<Product> => {
-    return fetch("http://localhost:3001/product",
+    return fetch(`${URL}/product`,
     {method:"POST", body:JSON.stringify(product),
     headers:{'Accept': 'application/json',
     'Content-Type': 'application/json'}})
