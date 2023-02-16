@@ -34,7 +34,13 @@ export interface Sale{
         category:string;
     }
 }
+export type NSale = {
+    productId:number;
+    quantity:number;
+}
 
 export interface SaleState {
-    sales: Sale[]
+    sales: Sale[],
+    newSaleCreated: Sale | null;
+    product:Product | null;
 }

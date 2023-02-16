@@ -17,11 +17,11 @@ const ToolSale = () => {
 
    return(
        <div className={`container d-flex justify-content-evenly align-items-center ${style.container}`}>
-               <button type="button" className="btn btn-primary"
+               {/* <button type="button" className="btn btn-primary"
                data-bs-toggle="modal"
                data-bs-target="#NEWPRODUCT">
                    Agregar producto
-               </button>
+               </button> */}
                <div className="input-group w-50">
                    <span className="input-group-text" id="addon-wrapping">Categoria</span>
                    <select className="form-select" aria-label="Default select example" name="category" onChange={handleChangeOptionCategories}>

@@ -19,12 +19,12 @@ const ToolProduct = () => {
 
     return(
         <div className={`container d-flex justify-content-evenly align-items-center ${style.container}`}>
-            <div className={`d-flex flex-column ${style.codeColor}`}>
+            {/* <div className={`d-flex flex-column ${style.codeColor}`}>
                 <span><span className={`new ${style.containerColor}`}></span> Nuevo</span>
                 <span><span className={`hight ${style.containerColor}`}></span> Alto</span>
                 <span><span className={`warning ${style.containerColor}`}></span> Medio</span>
                 <span><span className={`danger ${style.containerColor}`}></span> Bajo</span>
-            </div>
+            </div> */}
                 <button type="button" className="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#NEWPRODUCT">

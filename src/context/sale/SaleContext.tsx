@@ -1,10 +1,12 @@
 import { createContext } from "react";
-import { Sale, SaleState } from "../../../types";
+import { NSale, Product, Sale, SaleState } from "../../../types";
 
 
 interface ContextProps{
     saleState: SaleState;
     getAllSales: () => void
+    postNewSale: (Sale:NSale) => void
+    setProductId: (product:Product) => void
 }
 
 

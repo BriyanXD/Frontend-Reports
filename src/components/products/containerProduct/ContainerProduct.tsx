@@ -4,9 +4,12 @@ import styles from "./styles.module.css";
 import { ProductContext } from "../../../context/product/ProductContext";
 import Modal from "../../modal/Modal";
 import UpdateProduct from "../updateProduct/UpdateProduct";
+import NewSale from "../../sales/NewSale/NewSale";
+import SaleContext from "../../../context/sale/SaleContext";
 const ContainerProduct = () => {
 
     const { productState, getProducts,setProductToUpdated } = useContext(ProductContext)
+    const { setProductId } = useContext( SaleContext )
     const { products, error, loading } = productState;
 
     useEffect(() => getProducts(),[])
@@ -17,6 +20,9 @@ const ContainerProduct = () => {
         <div className={`container d-flex flex-column gap-1 ${styles.container}`}>
             <Modal id="UPDATEPRODUCT" title="Modificar producto">
                 <UpdateProduct/>
+            </Modal>
+            <Modal id="NEWSALE" title="Formulario de venta">
+                <NewSale/>
             </Modal>
             <table className="table table-hover table-borderless">
             <thead>
@@ -35,7 +41,9 @@ const ContainerProduct = () => {
                     index={index+1}
                     key={product?.id}
                     product={product}
-                    setProductToUpdated={setProductToUpdated}/>)
+                    setProductToUpdated={setProductToUpdated}
+                    setProductId={setProductId}
+                    />)
             }
             </tbody>
             </table>

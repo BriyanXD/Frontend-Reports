@@ -6,4 +6,9 @@ const getAllProducts = ():Promise<Product[]> => {
     .then(response => response.json())
 }
 
-export {getAllProducts}
+const getOneProduct = (productId:number):Promise<Product[]> => {
+    return fetch(`${URL}/product?PorductId=${productId}`,{method:"GET"})
+    .then(response => response.json())
+}
+
+export {getAllProducts, getOneProduct}
