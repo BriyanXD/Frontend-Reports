@@ -1,10 +1,9 @@
 import { useContext, useEffect } from "react";
-import { ProductContext } from "../../../context/product/ProductContext";
 import Modal from "../../modal/Modal";
-import CardProduct from "../../products/cardProduct/CardProduct";
 import UpdateProduct from "../../products/updateProduct/UpdateProduct";
 import SaleContext from "../../../context/sale/SaleContext";
 import CardSale from "../CardSale/CardSale";
+import styles from "./style.module.css"
 
 const ContainerSale =() => {
     const { saleState, getAllSales } = useContext(SaleContext)
@@ -15,7 +14,7 @@ const ContainerSale =() => {
     /* if(loading) return( <div className="container d-flex justify-content-center bg-success"><h1>Cargando...</h1></div> )
     if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> ) */
     return(
-        <div className={`container d-flex flex-column gap-1`}>
+        <div className={`container d-flex flex-column gap-1 ${styles.container}`}>
             <Modal id="UPDATEPRODUCT" title="Modificar producto">
                 <UpdateProduct/>
             </Modal>

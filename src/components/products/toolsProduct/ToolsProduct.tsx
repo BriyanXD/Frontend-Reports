@@ -42,7 +42,7 @@ const ToolProduct = () => {
                     </select>
                 </div>
                 <form className="d-flex gap-2" role="search">
-                    <input className="form-control border border-info"  type="search" placeholder="Buscar..." aria-label="Search" onChange={handleChangeinputSearch}/>
+                    <input className="form-control border border-primary"  type="search" placeholder="Buscar..." aria-label="Search" onChange={handleChangeinputSearch}/>
                     <input type="button" className="btn btn-outline-primary" value="Buscar" onClick={() => searchProducts(word)}/>
                 </form>
             <Modal id="NEWPRODUCT" title="Agregar producto">

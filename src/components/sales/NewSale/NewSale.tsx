@@ -1,19 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NSale } from "../../../../types";
 import SaleContext from "../../../context/sale/SaleContext";
+import { useForm } from "../../../hooks/useForm";
+import { Message } from "../../messages/Message";
+
+
+interface FormData {
+    quantity:string;
+    entri:string;
+}
 
 const NewSale = () => {
+    const { formData, handleChange, clearForm} = useForm<FormData>({
+        quantity: "",
+        entri: ""
+    })
     const { saleState, postNewSale} = useContext(SaleContext);
     const { newSaleCreated, product } = saleState
-    const [saleToCreate, setSaleToCreate] = useState({
-        quantity: 0,
-        productId: 0,
-        entri:0,
-        change:0,
-        total:0
-    })
     const [created, setCreated] = useState<boolean>(false);
     const [errorCreated, setErrorCreated] = useState<boolean>(false);
+    const [saleToCreate, setSaleToCreate] = useState({total:0,change:0})
+    const [productId, setProductId] = useState<number>(0)
 
     useEffect(() => {
         /* if(newSaleCreated  === "ERROR_CREATED"){
@@ -26,56 +32,35 @@ const NewSale = () => {
         }
     }, [newSaleCreated])
 
-    useEffect(() => setSaleToCreate({...saleToCreate,
-        productId: product?.id || 0,
-        total:Number(saleToCreate.quantity * (product?.price || 0)),
-        change: Number(saleToCreate.entri - saleToCreate.total) || 0}),[product?.id, saleToCreate]) 
-
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    useEffect(() => {
+        setProductId(product?.id || 0)
         setSaleToCreate({...saleToCreate,
-            [event.target.name]:event.target.value})
-    }
+        total:Number(Number(formData.quantity) * (product?.price || 0)),
+        change: Number(Number(formData.entri) - saleToCreate.total) || 0})},[formData]) 
+
     const handleSubmit = (event:React.MouseEvent<HTMLInputElement>) => {
         event.preventDefault()
-        const {productId, quantity} = saleToCreate
-        postNewSale({productId, quantity});
+        postNewSale({productId, quantity:Number(formData.quantity)});
     }
 
-    const renderMessageCreated = () => {
-        setTimeout(() => setCreated(false),3000)
-        return ( <div className="card bg-success text-white d-flex justify-content-center align-items-center">
-                <span>Producto creado con exito</span>
-        </div> )
-    }
-    const renderMessageErrorCreated = () => {
-        setTimeout(() => setErrorCreated(false),3000)
-        return ( <div className="card bg-danger text-white d-flex justify-content-center align-items-center">
-                <span>Error al crear el producto, el nombre del producto ya existe</span>
-        </div> )
-    }
 
-    const clearForm = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event?.preventDefault()
-        setSaleToCreate({
-            quantity: 0,
-            productId: product?.id || 0,
-            entri: 0,
-            total:0,
-            change:0
-        })
+    const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+        clearForm()
     }
 
     return(
         <form className="d-flex flex-column gap-2">
-            {created ? renderMessageCreated() : null}
-            {errorCreated ? renderMessageErrorCreated() : null}
+            {created ? <Message setFunction={setCreated} bg="bg-success" text="text-white" message="Venta registrada"/> : null}
+            {errorCreated ? <Message setFunction={setErrorCreated} bg="bg-danger" text="text-white" message="Error al registrar venta"/> : null}
+            <h5 className="d-flex justify-content-center">{product?.name}</h5>
             <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">Cantidad</span>
-                <input type="text" className="form-control" value={saleToCreate.quantity} placeholder="quantity" aria-label="quantity" aria-describedby="addon-wrapping" name="quantity" onChange={handleChange}/>
+                <input type="number" className="form-control" value={formData.quantity} placeholder="quantity" aria-label="quantity" aria-describedby="addon-wrapping" name="quantity" onChange={handleChange}/>
             </div>
             <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">Entrada</span>
-                <input type="text" className="form-control" value={saleToCreate.entri} placeholder="entri" aria-label="entri" aria-describedby="addon-wrapping" name="entri" onChange={handleChange}/>
+                <input type="number" className="form-control" value={formData.entri} placeholder="entri" aria-label="entri" aria-describedby="addon-wrapping" name="entri" onChange={handleChange}/>
             </div>
             <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">Total</span>
@@ -85,8 +70,8 @@ const NewSale = () => {
             </div>
             <div className="card">
                 <div className="card-body d-flex justify-content-around">
-                    <input type="submit" className="btn btn-primary" value="Vender" onClick={handleSubmit}/>
-                    <button className="btn btn-outline-success" onClick={clearForm}>Limpiar</button>
+                    <input type="submit" className="btn btn-primary" value="Vender" onClick={handleSubmit} disabled={created || (Number(product?.quantity) < 1)}/>
+                    <button className="btn btn-outline-success" onClick={handleClear}>Limpiar</button>
                     <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
                 </div>
             </div>

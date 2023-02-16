@@ -8,8 +8,8 @@ interface TypeProps {
 const CardSale = ({sale, index}: TypeProps) => {
     return(
         <tr>
-                    <th>{index}</th>
-                    <th>{sale?.product?.name}</th>
+                    <th className="text-danger">{index}</th>
+                    <th className="text-primary">{sale?.product?.name}</th>
                     <td>{sale?.quantity}</td>
                     <td>{sale?.product?.price}Bs.</td>
                     <td>{sale?.total}Bs.</td>
