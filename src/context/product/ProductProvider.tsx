@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { NProduct, Product, ProductState } from "../../../types";
 import { ProductContext } from "./ProductContext";
 import { ProductReducer } from "./ProductReducer";
-import { getAllProducts } from "../../services/product/getProduct";
+import { getAllProducts, getOneProduct } from "../../services/product/getProduct";
 import postNewProduct from "../../services/product/postProduct";
 import SearchForKeywords from "../../services/product/searchForKeywords";
 import deleteProductById from "../../services/product/deleteProduct";
@@ -82,6 +82,15 @@ export const ProductProvider = ({ children }:TypeProps) => {
     .then(response => dispatch({type:'GET_ALL_PRODUCTS', payload: orderByName(response)}))
     .catch(() => dispatch({type:"ERROR", payload:true})) }
 
+
+    const getOneProductById = (productId:number) => {
+        getOneProduct(productId)
+        .then(response => {
+            const productsUpdated = replaceProduct(response, productState.products)
+            dispatch({type:"GET_ALL_PRODUCTS", payload: productsUpdated})
+        })
+    }
+
     const newProduct = (product:NProduct) => postNewProduct(product)
     .then(response =>{
         if(response.name === 'ERROR_POST_PRODUCTS')dispatch({type:"ERROR_CREATED", payload:"ERROR_CREATED"})
@@ -97,7 +106,8 @@ export const ProductProvider = ({ children }:TypeProps) => {
             updateProduct,
             dispatch,
             deleteProduct,
-            filterProducts
+            filterProducts,
+            getOneProductById
         }}>
             {children}
         </ProductContext.Provider>

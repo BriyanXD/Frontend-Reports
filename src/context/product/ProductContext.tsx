@@ -5,12 +5,13 @@ import { ProductAction } from "./ProductReducer";
 export type ProductContextProps = {
     productState: ProductState
     getProducts: () => void
-    newProduct: (product:NProduct) => void
-    searchProducts:(word:string) => void;
-    deleteProduct: (id:number) => void
-    setProductToUpdated: (product:Product)=> void
-    updateProduct: (product:Product) => void
-    filterProducts: (category:string) => void
+    newProduct: (product: NProduct) => void
+    searchProducts:(word: string) => void;
+    deleteProduct: (id: number) => void
+    setProductToUpdated: (product: Product)=> void
+    updateProduct: (product: Product) => void
+    filterProducts: (category: string) => void
+    getOneProductById: (productId: number) => void
     dispatch: React.Dispatch<ProductAction>
 }
 

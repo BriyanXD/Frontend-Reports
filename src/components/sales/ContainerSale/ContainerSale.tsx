@@ -26,6 +26,8 @@ const ContainerSale =() => {
                     <th scope="col">Cantidad</th>
                     <th scope="col">P/unidad</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
                     <th scope="col">Configs</th>
                 </tr>
             </thead>
