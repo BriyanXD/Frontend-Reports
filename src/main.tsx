@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ContainerSale from './components/sales/ContainerSale/ContainerSale'
 import ToolSale from './components/sales/ToolsSale/ToolSale'
 import { SaleProvider } from './context/sale/SaleProvider'
+import Home from './components/home/Home'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -20,7 +21,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Routes>
         <Route path='/' element={
           <>
-            <h1>Home</h1>
+            <Home/>
           </>
         }/>
         <Route path='productos' element={

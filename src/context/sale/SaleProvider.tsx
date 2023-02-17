@@ -25,14 +25,14 @@ export const SaleProvider = ({children}:ProviderProps) => {
     const getAllSales = () => {
         getSales()
         .then(response => {
-            dispatch({type:"GET_ALL_SALES", payload: response})})
+            dispatch({type:"GET_ALL_SALES", payload: response.reverse()})})
     }
 
     const getSalesByData = ({value, key}:PropsGetSale) => {
         getSaleByData({value, key})
         .then(response => {
             console.log(response);
-            dispatch({type:"GET_ALL_SALES", payload:response})})
+            dispatch({type:"GET_ALL_SALES", payload:response.reverse()})})
     }
 
     const postNewSale = (sale:NSale) => {

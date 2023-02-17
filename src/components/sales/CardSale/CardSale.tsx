@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Sale } from "../../../../types";
+import { copyTextToClipboard } from "../../../utils/copyText";
 import { formatDate } from "../../../utils/formatDate";
 import { formaTime } from "../../../utils/formaTime";
 
@@ -10,19 +11,13 @@ interface TypeProps {
 
 const CardSale = ({sale, index}: TypeProps) => {
 
-    const thRef = useRef<any>()
-
-    async function copyTextToClipboard(/* event: React.MouseEvent<HTMLTableCellElement> */) {
-        thRef.current.select();
-        document.execCommand("copy", true)
-      }
-
+    const inputRef = useRef<HTMLInputElement>(null)
 
     return(
         <tr>
                     <th className="text-danger">{index}</th>
-                    <th className="text-primary" onClick={copyTextToClipboard} >
-                        <input className="form-control" ref={thRef} type="text" value={sale?.product?.name} readOnly/>
+                    <th className="text-primary" onClick={() => copyTextToClipboard(inputRef.current as HTMLInputElement)} >
+                        <input className="form-control" ref={inputRef} type="text" value={sale?.product?.name} readOnly/>
                     </th>
                     <td>{sale?.quantity}</td>
                     <td>{sale?.product?.price}Bs.</td>

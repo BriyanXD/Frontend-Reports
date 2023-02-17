@@ -32,9 +32,9 @@ const ContainerSale =() => {
                 </tr>
             </thead>
             <tbody>
-            {
+            {   
                 sales?.map((sale, index) => <CardSale
-                    index={index+1}
+                    index={index + 1}
                     key={sale?.id}
                     sale={sale}/>)
             }
