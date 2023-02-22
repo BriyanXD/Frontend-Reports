@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import SaleContext from "../../../context/sale/SaleContext";
 import Modal from "../../modal/Modal";
 import NewProduct from "../../products/newProduct/NewProduct";
@@ -13,6 +13,10 @@ const ToolSale = () => {
     const handleChangeinputSearch = (event:React.ChangeEvent<HTMLInputElement>) => setWord(event.target.value)
     const handleChangeOptionCategories = (event:React.ChangeEvent<HTMLSelectElement>) => setCustomDate({...customDate,key:event.target.value})    
     const handleChangeDateSearch = (event: React.ChangeEvent<HTMLInputElement>) => getSalesByData({key:"createdAt",value:event.target.value})
+    const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        getSalesByData({value:word,key:"name"})
+    }
 
    return(
        <div className={`container d-flex justify-content-evenly align-items-center ${style.container}`}>
@@ -33,9 +37,9 @@ const ToolSale = () => {
                    <input className="form-control border border-primary"  type="date" aria-label="Search" onChange={handleChangeDateSearch}/>
                </form>: null
                }
-               <form className="d-flex gap-2" role="search">
+               <form className="d-flex gap-2" role="search" onSubmit={handleSubmitForm}>
                    <input className="form-control border border-primary"  type="search" placeholder="Buscar..." aria-label="Search" onChange={handleChangeinputSearch}/>
-                   <input type="button" className="btn btn-outline-primary" value="Buscar" onClick={() => getSalesByData({value:word,key:"name"})}/>
+                   <input type="submit" className="btn btn-outline-primary" value="Buscar"/>
                </form>
            <Modal id="NEWPRODUCT" title="Agregar producto">
                <NewProduct/>

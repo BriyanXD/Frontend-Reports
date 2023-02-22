@@ -13,18 +13,14 @@ const ToolProduct = () => {
 
 
     const handleChangeinputSearch = (event:React.ChangeEvent<HTMLInputElement>) => setWord(event.target.value)
-
     const handleChangeOptionCategories = (event:React.ChangeEvent<HTMLSelectElement>) => filterProducts(event.target.value)
-
+    const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        searchProducts(word)
+    }
 
     return(
         <div className={`container d-flex justify-content-evenly align-items-center ${style.container}`}>
-            {/* <div className={`d-flex flex-column ${style.codeColor}`}>
-                <span><span className={`new ${style.containerColor}`}></span> Nuevo</span>
-                <span><span className={`hight ${style.containerColor}`}></span> Alto</span>
-                <span><span className={`warning ${style.containerColor}`}></span> Medio</span>
-                <span><span className={`danger ${style.containerColor}`}></span> Bajo</span>
-            </div> */}
                 <button type="button" className="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#NEWPRODUCT">
@@ -41,9 +37,9 @@ const ToolProduct = () => {
                         <option value="insumo">Insumo</option>
                     </select>
                 </div>
-                <form className="d-flex gap-2" role="search">
+                <form className="d-flex gap-2" role="search" onSubmit={handleSubmitForm}>
                     <input className="form-control border border-primary"  type="search" placeholder="Buscar..." aria-label="Search" onChange={handleChangeinputSearch}/>
-                    <input type="button" className="btn btn-outline-primary" value="Buscar" onClick={() => searchProducts(word)}/>
+                    <input type="submit" className="btn btn-outline-primary" value="Buscar"/>
                 </form>
             <Modal id="NEWPRODUCT" title="Agregar producto">
                 <NewProduct/>
