@@ -5,6 +5,7 @@ import { SaleReducer } from "./SaleReducer"
 import { NSale, Product, Sale, SaleState } from "../../../types"
 import { postSale } from "../../services/sale/postSale"
 import { ProductContext } from "../product/ProductContext"
+import { updateSaleById } from "../../services/sale/updateSale"
 
 interface ProviderProps {
     children: JSX.Element | JSX.Element[]
@@ -13,7 +14,8 @@ interface ProviderProps {
 const INITIAL_STATE:SaleState = {
     sales:[],
     newSaleCreated:null,
-    product:null
+    product:null,
+    saleUpdated: null,
 }
 
 export const SaleProvider = ({children}:ProviderProps) => {
@@ -42,11 +44,16 @@ export const SaleProvider = ({children}:ProviderProps) => {
             dispatch({type:"POST_NEW_SALE",payload:response})})
     }
 
+    const updateSale = (productId:number,sale:Sale) => {
+        updateSaleById(productId,sale)
+        .then(response => response)
+    }
+
     const setProductId = (product:Product) => dispatch({type:"SET_PRODUCT_ID",payload:product}) 
 
 
     return(
-        <SaleContext.Provider value={{saleState, getAllSales,postNewSale,setProductId,getSalesByData}}>
+        <SaleContext.Provider value={{saleState, getAllSales,postNewSale,setProductId,getSalesByData, updateSale}}>
             {children}
         </SaleContext.Provider>
     )

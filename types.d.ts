@@ -43,4 +43,5 @@ export interface SaleState {
     sales: Sale[],
     newSaleCreated: Sale | null;
     product:Product | null;
+    saleUpdated: Sale |  null;
 }

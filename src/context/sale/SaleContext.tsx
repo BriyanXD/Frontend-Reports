@@ -9,6 +9,7 @@ interface ContextProps{
     postNewSale: (Sale:NSale) => void;
     setProductId: (product:Product) => void;
     getSalesByData: ({value, key}:PropsGetSale) => void
+    updateSale: (productId:number, sale:Sale) => void
 }
 
 
