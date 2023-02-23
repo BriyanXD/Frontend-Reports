@@ -7,9 +7,12 @@ import { formaTime } from "../../../utils/formaTime";
 interface TypeProps {
     sale: Sale;
     index: number;
+    props: {saveSale:(sale:Sale) => void};
 }
 
-const CardSale = ({sale, index}: TypeProps) => {
+const CardSale = ({sale, index, props}: TypeProps) => {
+
+    const { saveSale } = props
 
     const inputRef = useRef<HTMLInputElement>(null)
 
@@ -27,8 +30,8 @@ const CardSale = ({sale, index}: TypeProps) => {
                     <td><input className="btn btn-success"
                             type="button" value="Modificar"
                             data-bs-toggle="modal"
-                            data-bs-target="#UPDATEPRODUCT"
-                            disabled
+                            data-bs-target="#UPDATESALE"
+                            onClick={() => saveSale(sale)}
                     /></td>
             </tr>
     )

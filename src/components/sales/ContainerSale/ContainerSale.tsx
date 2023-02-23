@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
 import Modal from "../../modal/Modal";
-import UpdateProduct from "../../products/updateProduct/UpdateProduct";
 import SaleContext from "../../../context/sale/SaleContext";
 import CardSale from "../CardSale/CardSale";
 import styles from "./style.module.css"
+import UpdateSale from "../UpdateSale/UpdateSale";
 
 const ContainerSale =() => {
-    const { saleState, getAllSales } = useContext(SaleContext)
+    const { saleState, getAllSales, saveSale } = useContext(SaleContext)
     const { sales } = saleState;
 
     useEffect(() => getAllSales(),[])
@@ -15,8 +15,8 @@ const ContainerSale =() => {
     if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> ) */
     return(
         <div className={`container d-flex flex-column gap-1 ${styles.container}`}>
-            <Modal id="UPDATEPRODUCT" title="Modificar producto">
-                <UpdateProduct/>
+            <Modal key="UPDATESALE" id="UPDATESALE" title="Modificar venta">
+                <UpdateSale/>
             </Modal>
             <table className="table table-hover table-borderless">
             <thead>
@@ -34,6 +34,7 @@ const ContainerSale =() => {
             <tbody>
             {   
                 sales?.map((sale, index) => <CardSale
+                    props={{saveSale}}
                     index={index + 1}
                     key={sale?.id}
                     sale={sale}/>)

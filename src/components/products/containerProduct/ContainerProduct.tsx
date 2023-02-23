@@ -18,10 +18,10 @@ const ContainerProduct = () => {
     if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> )
     return(
         <div className={`container d-flex flex-column gap-1 ${styles.container}`}>
-            <Modal id="UPDATEPRODUCT" title="Modificar producto">
+            <Modal key="UPDATEPRODUCT" id="UPDATEPRODUCT" title="Modificar producto">
                 <UpdateProduct/>
             </Modal>
-            <Modal id="NEWSALE" title="Formulario de venta">
+            <Modal key="NEWSALE" id="NEWSALE" title="Formulario de venta">
                 <NewSale/>
             </Modal>
             <table className="table table-hover table-borderless">

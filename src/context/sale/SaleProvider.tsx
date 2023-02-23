@@ -16,6 +16,7 @@ const INITIAL_STATE:SaleState = {
     newSaleCreated:null,
     product:null,
     saleUpdated: null,
+    saleSaved: null
 }
 
 export const SaleProvider = ({children}:ProviderProps) => {
@@ -44,16 +45,29 @@ export const SaleProvider = ({children}:ProviderProps) => {
             dispatch({type:"POST_NEW_SALE",payload:response})})
     }
 
-    const updateSale = (productId:number,sale:Sale) => {
-        updateSaleById(productId,sale)
-        .then(response => response)
+    const updateSale = (sale:Sale) => {
+        updateSaleById(sale.id,sale)
+        .then(response => {
+            dispatch({type:"UPDATE_SALE",payload:response})
+        })
+        .catch(error => console.log(error))
+    }
+
+    const saveSale = (sale:Sale) => {
+        dispatch({type:"SET_SALE", payload:sale})
     }
 
     const setProductId = (product:Product) => dispatch({type:"SET_PRODUCT_ID",payload:product}) 
 
 
     return(
-        <SaleContext.Provider value={{saleState, getAllSales,postNewSale,setProductId,getSalesByData, updateSale}}>
+        <SaleContext.Provider value={{saleState,
+         getAllSales,
+         postNewSale,
+         setProductId,
+         getSalesByData,
+         updateSale,
+         saveSale}}>
             {children}
         </SaleContext.Provider>
     )
