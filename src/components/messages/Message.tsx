@@ -1,13 +1,11 @@
 interface TypeProps {
-    setFunction: (value:boolean) => void;
-    message: string;
+    message: string | number;
     bg: string;
     text: string;
 }
 
 
-export const Message = ({setFunction, bg, message, text}:TypeProps) => {
-    setTimeout(() => setFunction(false),3000)
+export const Message = ({bg, message, text}:TypeProps) => {
     return (
     <div className={`card ${bg} ${text} d-flex justify-content-center align-items-center`}>
             <span>{message}</span>

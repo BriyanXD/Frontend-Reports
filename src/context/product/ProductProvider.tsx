@@ -40,7 +40,9 @@ export const ProductProvider = ({ children }:TypeProps) => {
     } */
 
     const searchProducts = (word: string) => {
-        getAllProducts().then(response =>{
+        getAllProducts()
+        .then(response => response.json())
+        .then(response =>{
             const productSeached = SearchForKeywords(response,word)
             dispatch({type:"SEARCH_PRODUCTS", payload: orderByName(productSeached)})
         })
@@ -58,7 +60,9 @@ export const ProductProvider = ({ children }:TypeProps) => {
     }
 
     const filterProducts = (category: string) => {
-        getAllProducts().then(response => {
+        getAllProducts()
+        .then(response => response.json())
+        .then(response => {
             const productsFiltreded = filterProductByCategory(category, response)
             dispatch({type:"FILTER_BY_CATEGORY", payload: orderByName(productsFiltreded)})
         })
@@ -68,20 +72,37 @@ export const ProductProvider = ({ children }:TypeProps) => {
         dispatch({type:"UPDATE_PRODUCT",payload:product})
     }
 
-    const updateProduct = (product:Product) => {
-        updateProductById(product, product.id)
+    const updateProduct = async(product:Product) => {
+        let responseReturn = {}
+        await updateProductById(product, product.id)
+        .then(response => {
+            responseReturn = response;
+            return response.json()
+        })
         .then(response => {
             const productsUpdated = replaceProduct(response, productState.products)
             dispatch({type:"GET_ALL_PRODUCTS", payload:productsUpdated})
+            console.log("RESPUESTA 2" , response);
         })
+        .catch(error => console.log(error))
+        return responseReturn
     }
 
-    const getProducts = () =>{
-    dispatch({type:"LOADING", payload:true})
-    getAllProducts()
-    .then(response => dispatch({type:'GET_ALL_PRODUCTS', payload: orderByName(response)}))
-    .catch(() => dispatch({type:"ERROR", payload:true})) }
-
+    const getProducts = async() =>{
+            let responseReturn = {} as Response;
+        dispatch({type:"LOADING", payload:true})
+        await getAllProducts()
+        .then(response => {
+            responseReturn = response
+            return response.json() as Promise<Product[]>
+        })
+        .then(response => dispatch({type:'GET_ALL_PRODUCTS', payload: orderByName(response)}))
+        .catch(() => {
+            dispatch({type:"LOADING", payload:false})
+            dispatch({type:"ERROR", payload:true})
+        })
+    }
+    
 
     const getOneProductById = (productId:number) => {
         getOneProduct(productId)

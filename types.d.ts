@@ -8,6 +8,16 @@ export interface Product{
     unit: string;
 }
 
+export interface ProductError{
+    id: string;
+    name: string;
+    quantity: string;
+    price: string;
+    condition: string;
+    category: string;
+    unit: string;
+}
+
 export interface ProductState {
     productCount:number;
     products:Product[];

@@ -1,9 +1,8 @@
 import {Product} from "../../../types"
 import {URL} from "../../config";
 
-const getAllProducts = ():Promise<Product[]> => {
+const getAllProducts = ():Promise<Response> => {
     return fetch(`${URL}/product`,{method:"GET"})
-    .then(response => response.json())
 }
 
 const getOneProduct = (productId:number):Promise<Product> => {
