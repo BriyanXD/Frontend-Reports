@@ -34,11 +34,6 @@ export const ProductProvider = ({ children }:TypeProps) => {
     
     const [productState, dispatch] = useReducer(ProductReducer, INITIAL_STATE);
 
-    /* const comprobrationState = ():Product[] => {
-        if(productState.productsForSearch && productState.productsForSearch.length > 0) return productState.productsForSearch
-        return productState.products
-    } */
-
     const searchProducts = (word: string) => {
         getAllProducts()
         .then(response => response.json())
@@ -89,7 +84,7 @@ export const ProductProvider = ({ children }:TypeProps) => {
     }
 
     const getProducts = async() =>{
-            let responseReturn = {} as Response;
+        let responseReturn = {} as Response;
         dispatch({type:"LOADING", payload:true})
         await getAllProducts()
         .then(response => {
@@ -112,10 +107,19 @@ export const ProductProvider = ({ children }:TypeProps) => {
         })
     }
 
-    const newProduct = (product:NProduct) => postNewProduct(product)
-    .then(response =>{
-        if(response.name === 'ERROR_POST_PRODUCTS')dispatch({type:"ERROR_CREATED", payload:"ERROR_CREATED"})
-        else dispatch({type:"POST_NEW_PRODUCT", payload:response})})
+    const newProduct = async (product:NProduct) => {
+        let responseReturn = {} as Response;
+        await postNewProduct(product)
+        .then(response =>{
+            responseReturn = response;
+            return response.json()
+        })
+        .then(response =>{
+            if(response.error) return
+            dispatch({type:"POST_NEW_PRODUCT", payload:response})
+        })
+        return responseReturn
+    }
 
     return(
         <ProductContext.Provider value={{

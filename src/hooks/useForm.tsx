@@ -25,13 +25,11 @@ export const useForm = <T extends Object>(initState: T, validateForm:Function) =
     const handleSubmit = async(event: React.FormEvent<HTMLFormElement>, callback: Function) => {
         event.preventDefault();
         setErrors(validateForm(formData));
-        if(Object.keys(errors).length === 0){
-            alert("Enviando Formulario")
-            setLoading(true);
 
+        if(Object.keys(errors).length === 0){
+            setLoading(true);
             //*! Esta funcion ejecuta la logica del envie del formulario
             let response = await callback(formData);
-            
             setLoading(false)
             if(response.statusText === "OK"){
                 setResponse(true)
@@ -46,10 +44,12 @@ export const useForm = <T extends Object>(initState: T, validateForm:Function) =
         }
     }
 
-    const clearForm = () => {
+    const clearForm = (event: React.MouseEvent<HTMLInputElement>) => {
+        event.preventDefault();
         let stateReseted = {}
         for(let key in formData) stateReseted = {...stateReseted, [key]:""}
         setFormData(stateReseted as T)
+        setErrors({} as T)
     }
     return{
         formData,
