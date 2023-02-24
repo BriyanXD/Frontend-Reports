@@ -44,6 +44,17 @@ export interface Sale{
         category:string;
     }
 }
+
+export interface SaleError{
+    id: string;
+    quantity: string;
+    total: string;
+    createdAt: string;
+    creationTime: string;
+    productId: string;
+}
+
+
 export type NSale = {
     productId:number;
     quantity:number;

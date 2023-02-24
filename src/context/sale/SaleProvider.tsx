@@ -45,12 +45,18 @@ export const SaleProvider = ({children}:ProviderProps) => {
             dispatch({type:"POST_NEW_SALE",payload:response})})
     }
 
-    const updateSale = (sale:Sale) => {
-        updateSaleById(sale.id,sale)
+    const updateSale = async(sale:Sale) => {
+        let responseReturn = {};
+        await updateSaleById(sale.id,sale)
+        .then(response => {
+            responseReturn = response;
+            return response.json();
+        })
         .then(response => {
             dispatch({type:"UPDATE_SALE",payload:response})
         })
         .catch(error => console.log(error))
+        return responseReturn;
     }
 
     const saveSale = (sale:Sale) => {

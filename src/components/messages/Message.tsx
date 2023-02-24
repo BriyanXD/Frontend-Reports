@@ -7,7 +7,7 @@ interface TypeProps {
 
 export const Message = ({bg, message, text}:TypeProps) => {
     return (
-    <div className={`card ${bg} ${text} d-flex justify-content-center align-items-center`}>
-            <span>{message}</span>
+    <div className={`card ${bg} ${text}`}>
+            <span className="text-center">{message}</span>
     </div> )
 }
