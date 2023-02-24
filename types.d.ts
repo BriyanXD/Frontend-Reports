@@ -42,6 +42,7 @@ export interface Sale{
         name:string;
         price:number;
         category:string;
+        quantity:number;
     }
 }
 

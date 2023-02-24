@@ -12,6 +12,7 @@ const validationsForm = (formData: Sale) => {
     const errors = {} as SaleError
 
     if(!formData.quantity) errors.quantity = "El campo 'Cantidad' es requerido."
+    else if(formData.quantity - Number(saleSaved?.quantity) > Number(saleSaved?.product?.quantity)) errors.quantity = "El valor del campo 'Cantidad' exede el sock disponible";
 
     return errors;
 }
