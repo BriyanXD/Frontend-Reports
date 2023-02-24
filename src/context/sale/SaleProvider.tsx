@@ -38,11 +38,19 @@ export const SaleProvider = ({children}:ProviderProps) => {
             dispatch({type:"GET_ALL_SALES", payload:response.reverse()})})
     }
 
-    const postNewSale = (sale:NSale) => {
-        postSale(sale)
+    const postNewSale = async (sale:NSale) => {
+        let responseReturn = {};
+
+        await postSale(sale, Number(saleState.product?.id))
+        .then(response => {
+            responseReturn = response;
+            return response.json();
+        })
         .then(response =>{
             getOneProductById(response.productId)
             dispatch({type:"POST_NEW_SALE",payload:response})})
+        .catch(error => console.log(error))
+        return responseReturn;
     }
 
     const updateSale = async(sale:Sale) => {
@@ -56,7 +64,7 @@ export const SaleProvider = ({children}:ProviderProps) => {
             dispatch({type:"UPDATE_SALE",payload:response})
         })
         .catch(error => console.log(error))
-        return responseReturn;
+        return responseReturn
     }
 
     const saveSale = (sale:Sale) => {

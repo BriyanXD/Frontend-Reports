@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Product, ProductError } from "../../../../types";
+import { Product, ProductError, Sale } from "../../../../types";
 import { ProductContext } from "../../../context/product/ProductContext";
 import { useForm } from "../../../hooks/useForm";
 import { Message } from "../../messages/Message";
 
 const UpdateProduct = () => {
 
-    const {productState, updateProduct, deleteProduct} = useContext(ProductContext);
+    const {productState, updateProduct, deleteProduct, setProductToUpdated} = useContext(ProductContext);
     const {productForUpdate} = productState
 
     
@@ -99,8 +99,8 @@ const UpdateProduct = () => {
             <div className="card">
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Guardar" disabled={loading}/>
-                    <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(Number(formData?.id))} disabled={loading}/>
-                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                    <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(Number(formData?.id))} disabled/>
+                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onClick={() => setProductToUpdated({} as Product)}>Cerrar</button>
                 </div>
             </div>
         </form>

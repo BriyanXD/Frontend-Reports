@@ -69,7 +69,7 @@ const NewProduct = () => {
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Agregar" disabled={loading}/>
                     <input type="button" value="Limpiar" className="btn btn-outline-success" onClick={clearForm} disabled={loading}/>
-                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                    <input type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" value="Cerrar" onClick={clearForm} disabled={loading}/>
                 </div>
             </div>
         </form>

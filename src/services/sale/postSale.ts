@@ -1,12 +1,11 @@
 import { NSale, Sale } from "../../../types"
 import { URL } from "../../config"
 
-const postSale = (sale:NSale):Promise<Sale> => {
+const postSale = (sale:NSale, productId: number):Promise<Response> => {
     return fetch(`${URL}/sale`,
     {method:"POST",
-    body: JSON.stringify(sale),
+    body: JSON.stringify({...sale, productId}),
     headers:{'Content-Type': 'application/json'}})
-    .then(response => response.json())
 }
 
 export {postSale}

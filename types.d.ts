@@ -57,8 +57,8 @@ export interface SaleError{
 
 
 export type NSale = {
-    productId:number;
     quantity:number;
+    entri:Number;
 }
 
 export interface SaleState {

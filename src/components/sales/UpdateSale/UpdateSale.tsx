@@ -5,7 +5,7 @@ import { useForm } from "../../../hooks/useForm";
 import { Message } from "../../messages/Message";
 
 const UpdateSale = () => {
-    const {saleState, updateSale} = useContext(SaleContext);
+    const {saleState, updateSale, saveSale} = useContext(SaleContext);
     const {saleSaved} = saleState
 
 const validationsForm = (formData: Sale) => {
@@ -68,7 +68,7 @@ const {handleChange, formData, setFormData, handleBlur, errors, handleSubmit, er
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Guardar" disabled={loading}/>
                     {/* <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(Number(formData?.id))}/> */}
-                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onClick={() => saveSale({})}>Cerrar</button>
                 </div>
             </div>
         </form>
