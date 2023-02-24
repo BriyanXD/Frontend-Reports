@@ -4,8 +4,11 @@ import SaleContext from "../../../context/sale/SaleContext";
 import { useForm } from "../../../hooks/useForm";
 import { Message } from "../../messages/Message";
 
+
+type typesMessage = "delete" | "submit";
+
 const UpdateSale = () => {
-    const {saleState, updateSale, saveSale} = useContext(SaleContext);
+    const {saleState, updateSale, saveSale, deleteSale} = useContext(SaleContext);
     const {saleSaved} = saleState
 
 const validationsForm = (formData: Sale) => {
@@ -16,6 +19,20 @@ const validationsForm = (formData: Sale) => {
 
     return errors;
 }
+const messagesTexts = {
+    submit : {
+        loading: "Guardando, espere...",
+        error: "Error al guardar, intenta nuevamente.",
+        response: "El registro fue actualizado con exito." 
+    },
+    delete : {
+        loading: "Eliminado, espere...",
+        error: "Error al eliminar, intenta nuevamente.",
+        response: "El registro fue eliminado." 
+    }
+}
+const [type, setType] = useState<typesMessage>("submit");
+
 
 const warningsForm = (formData: Sale) => {
     let warnigns = {} as SaleError
@@ -25,7 +42,7 @@ const warningsForm = (formData: Sale) => {
     return warnigns;
 }
 
-const {handleChange, formData, setFormData, handleBlur, errors, handleSubmit, error, loading, response, warnigns}= 
+const {handleChange, formData, setFormData, handleBlur, errors, handleSubmit, error, loading, response, warnigns, handleClick}= 
     useForm<Sale>(saleSaved as Sale, validationsForm, warningsForm)
 
     useEffect(() => {
@@ -33,7 +50,8 @@ const {handleChange, formData, setFormData, handleBlur, errors, handleSubmit, er
     },[saleSaved])
 
  return(
-    <form className="d-flex flex-column gap-2" onSubmit={e => handleSubmit(e, updateSale)}>
+    <form className="d-flex flex-column gap-2" onSubmit={e => {setType("submit")
+                                                               handleSubmit(e, updateSale)}}>
         <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">ID</span>
                 <input type="text" className="form-control" placeholder="id" aria-label="id" aria-describedby="addon-wrapping" name="id" value={formData?.id} disabled/>
@@ -61,14 +79,15 @@ const {handleChange, formData, setFormData, handleBlur, errors, handleSubmit, er
                 <span className="input-group-text" id="addon-wrapping">Hora</span>
                 <input type="text" className="form-control" placeholder="creationTIme" aria-label="creationTIme" aria-describedby="addon-wrapping" name="creationTIme" value={String(formData?.creationTime)} disabled/>
             </div>
-            {loading && <Message bg="bg-primary" message="Guardando, espere..." text="text-white"/>}
-            {error && <Message bg="bg-danger" message="Error al guardar, intenta nuevamente." text="text-white"/>}
-            {response && <Message bg="bg-success" message="El producto fue actualizado con exito." text="text-white"/>}
+            {loading && <Message bg="bg-primary" message={messagesTexts[type].loading} text="text-white"/>}
+            {error && <Message bg="bg-danger" message={messagesTexts[type].error} text="text-white"/>}
+            {response && <Message bg="bg-success" message={messagesTexts[type].response} text="text-white"/>}
             <div className="card">
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Guardar" disabled={loading}/>
-                    {/* <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(Number(formData?.id))}/> */}
-                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onClick={() => saveSale({})}>Cerrar</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={e => {setType("delete")
+                                                                                            handleClick(e, deleteSale)}}>Eliminar</button>
+                    <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onClick={() => saveSale({} as Sale)}>Cerrar</button>
                 </div>
             </div>
         </form>

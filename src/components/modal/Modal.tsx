@@ -12,7 +12,7 @@ const Modal = ({children, id, title}:TypeProps) => {
         tabIndex={-1}
          aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          data-bs-backdrop="static"
+          /* data-bs-backdrop="static" */
           >
       <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div className="modal-content">

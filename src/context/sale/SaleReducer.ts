@@ -7,6 +7,7 @@ export type SalesActionProps =
     | {type: "SET_PRODUCT_ID", payload: Product}
     | {type: "UPDATE_SALE", payload: Sale}
     | {type: "SET_SALE", payload: Sale}
+    | {type: "DELETE_SALE", payload: Sale[]}
 
 
 
@@ -22,6 +23,8 @@ export const SaleReducer = (state:SaleState, action: SalesActionProps): SaleStat
             return{...state, saleUpdated: action.payload, sales:replaceSale(action.payload, state.sales)}
         case "SET_SALE":
             return{...state, saleSaved:action.payload}
+        case "DELETE_SALE":
+            return{...state, sales:action.payload}
         default:
             return state;
     }

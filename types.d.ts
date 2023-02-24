@@ -29,7 +29,14 @@ export interface ProductState {
     deleted:0
 }
 
-export type NProduct = Omit<Product, 'id'>
+export interface NProduct{
+    name: string;
+    quantity: string;
+    price: string;
+    condition: string;
+    category: string;
+    unit: string;
+}
 
 export interface Sale{
     id: number;
@@ -57,8 +64,8 @@ export interface SaleError{
 
 
 export type NSale = {
-    quantity:number;
-    entri:Number;
+    quantity:string;
+    entri:string;
 }
 
 export interface SaleState {

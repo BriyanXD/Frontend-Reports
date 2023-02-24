@@ -3,6 +3,8 @@ import { Sale } from "../../../../types";
 import { copyTextToClipboard } from "../../../utils/copyText";
 import { formatDate } from "../../../utils/formatDate";
 import { formaTime } from "../../../utils/formaTime";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface TypeProps {
     sale: Sale;
@@ -27,12 +29,16 @@ const CardSale = ({sale, index, props}: TypeProps) => {
                     <td>{sale?.total}Bs.</td>
                     <td>{formatDate(sale?.createdAt)}</td>
                     <td>{formaTime(sale?.creationTime)}</td>
-                    <td><input className="btn btn-success"
-                            type="button" value="Modificar"
-                            data-bs-toggle="modal"
-                            data-bs-target="#UPDATESALE"
-                            onClick={() => saveSale(sale)}
-                    /></td>
+                    <td>
+                        <button
+                                className="btn btn-success"
+                                type="button" value="Modificar"
+                                data-bs-toggle="modal"
+                                data-bs-target="#UPDATESALE"
+                                onClick={() => saveSale(sale)}>
+                                <FontAwesomeIcon icon={faPenToSquare}/>
+                        </button>
+                    </td>
             </tr>
     )
 }

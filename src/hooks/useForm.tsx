@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 
 export const useForm = <T extends Object>(initState: T, validateForm:Function, warningsForm?: Function) => {
 
@@ -48,6 +48,23 @@ export const useForm = <T extends Object>(initState: T, validateForm:Function, w
         }
     }
 
+    const handleClick = async(event: React.MouseEvent<HTMLInputElement| HTMLButtonElement>, callback: Function) => {
+        event.preventDefault();
+            setLoading(true);
+            //*! Esta funcion ejecuta la logica del envie del formulario
+            let response = await callback(formData);
+            setLoading(false)
+            setWarinings({} as T)
+            if(response.statusText === "OK"){
+                setResponse(true)
+                setTimeout(() => setResponse(false),5000)
+            }
+            else {
+                setError(true)
+                setTimeout(() => setError(false),5000)
+            }
+    }
+
     const clearForm = (event: React.MouseEvent<HTMLInputElement>) => {
         event.preventDefault();
         let stateReseted = {}
@@ -67,6 +84,7 @@ export const useForm = <T extends Object>(initState: T, validateForm:Function, w
         clearForm,
         handleBlur,
         handleSubmit,
+        handleClick,
         setFormData
     }
 }

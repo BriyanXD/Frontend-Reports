@@ -11,6 +11,7 @@ interface ContextProps{
     getSalesByData: ({value, key}:PropsGetSale) => void
     updateSale: (sale:Sale) => void
     saveSale: (sale:Sale) => void 
+    deleteSale: (sale:Sale) => void
 }
 
 

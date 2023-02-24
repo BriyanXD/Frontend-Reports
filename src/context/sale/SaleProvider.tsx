@@ -6,6 +6,8 @@ import { NSale, Product, Sale, SaleState } from "../../../types"
 import { postSale } from "../../services/sale/postSale"
 import { ProductContext } from "../product/ProductContext"
 import { updateSaleById } from "../../services/sale/updateSale"
+import { deleteSaleById } from "../../services/sale/deleteSale"
+import { reduceSale } from "../../services/sale/reduceSale"
 
 interface ProviderProps {
     children: JSX.Element | JSX.Element[]
@@ -41,7 +43,7 @@ export const SaleProvider = ({children}:ProviderProps) => {
     const postNewSale = async (sale:NSale) => {
         let responseReturn = {};
 
-        await postSale(sale, Number(saleState.product?.id))
+        await postSale(sale, String(saleState.product?.id))
         .then(response => {
             responseReturn = response;
             return response.json();
@@ -52,6 +54,23 @@ export const SaleProvider = ({children}:ProviderProps) => {
         .catch(error => console.log(error))
         return responseReturn;
     }
+
+    const deleteSale = async(sale:Sale) => {
+        let responseReturn = {};
+
+            await deleteSaleById(sale)
+            .then(response => {
+                responseReturn = response;
+                return response.json()
+            })
+            .then(() => {
+                const result = reduceSale(String(sale.id), saleState.sales);
+                console.log(result);
+                dispatch({type:"DELETE_SALE", payload: result})
+            })
+        console.log(responseReturn);
+        return responseReturn;
+    } 
 
     const updateSale = async(sale:Sale) => {
         let responseReturn = {};
@@ -81,6 +100,7 @@ export const SaleProvider = ({children}:ProviderProps) => {
          setProductId,
          getSalesByData,
          updateSale,
+         deleteSale,
          saveSale}}>
             {children}
         </SaleContext.Provider>

@@ -9,11 +9,11 @@ const NewProduct = () => {
 
     const initialState = {
         name: "",
-        quantity: 0,
+        quantity: "",
         category:"bio-seguridad",
         condition:"",
         unit:"",
-        price:0
+        price: ""
     }
 
     const { newProduct } = useContext(ProductContext);
