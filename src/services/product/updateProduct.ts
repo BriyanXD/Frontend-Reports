@@ -1,7 +1,7 @@
 import { Product } from "../../../types";
 import {URL} from "../../config";
 
-const updateProductById = (product: Product, productId:number):Promise<Response> => {
+const updateProductById = (product: Product, productId:string):Promise<Response> => {
     return fetch(`${URL}/product?productId=${productId}`,
     {method:"PUT",
     body:JSON.stringify(product),

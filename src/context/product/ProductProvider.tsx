@@ -44,7 +44,6 @@ export const ProductProvider = ({ children }:TypeProps) => {
     }
 
     const deleteProduct = (id: number) => {
-        console.log(id)
         deleteProductById(id)
         .then(response =>{
             if(response === 1){
@@ -69,7 +68,7 @@ export const ProductProvider = ({ children }:TypeProps) => {
 
     const updateProduct = async(product:Product) => {
         let responseReturn = {}
-        await updateProductById(product, product.id)
+        await updateProductById(product, String(product.id))
         .then(response => {
             responseReturn = response;
             return response.json()
@@ -77,7 +76,6 @@ export const ProductProvider = ({ children }:TypeProps) => {
         .then(response => {
             const productsUpdated = replaceProduct(response, productState.products)
             dispatch({type:"GET_ALL_PRODUCTS", payload:productsUpdated})
-            console.log("RESPUESTA 2" , response);
         })
         .catch(error => console.log(error))
         return responseReturn
@@ -103,6 +101,7 @@ export const ProductProvider = ({ children }:TypeProps) => {
         getOneProduct(productId)
         .then(response => {
             const productsUpdated = replaceProduct(response, productState.products)
+            console.log(productsUpdated);
             dispatch({type:"GET_ALL_PRODUCTS", payload: productsUpdated})
         })
     }

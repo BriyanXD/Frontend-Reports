@@ -32,7 +32,8 @@ const NewSale = () => {
     useEffect(() => {
         setSaleToCreate({...saleToCreate,
         total:Number(Number(formData.quantity) * (product?.price || 0)),
-        change: Number(Number(formData.entri) - saleToCreate.total) || 0})},[formData]) 
+        change: Number(Number(formData.entri) - saleToCreate.total) || 0})
+    },[formData]) 
 
 
     return(

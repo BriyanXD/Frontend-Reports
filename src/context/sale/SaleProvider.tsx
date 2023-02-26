@@ -36,13 +36,11 @@ export const SaleProvider = ({children}:ProviderProps) => {
     const getSalesByData = ({value, key}:PropsGetSale) => {
         getSaleByData({value, key})
         .then(response => {
-            console.log(response);
             dispatch({type:"GET_ALL_SALES", payload:response.reverse()})})
     }
 
     const postNewSale = async (sale:NSale) => {
         let responseReturn = {};
-
         await postSale(sale, String(saleState.product?.id))
         .then(response => {
             responseReturn = response;
@@ -68,7 +66,6 @@ export const SaleProvider = ({children}:ProviderProps) => {
                 console.log(result);
                 dispatch({type:"DELETE_SALE", payload: result})
             })
-        console.log(responseReturn);
         return responseReturn;
     } 
 
