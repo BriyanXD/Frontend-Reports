@@ -6,11 +6,11 @@ import { getAllProducts, getOneProduct } from "../../services/product/getProduct
 import postNewProduct from "../../services/product/postProduct";
 import SearchForKeywords from "../../services/product/searchForKeywords";
 import deleteProductById from "../../services/product/deleteProduct";
-import { filterProductDeleted } from "../../services/product/filterProductDeleted";
 import updateProductById from "../../services/product/updateProduct";
-import replaceProduct from "../../services/product/replaceProduct";
 import orderByName from "../../services/product/orderByname";
 import filterProductByCategory from "../../services/product/filterProductByCategory";
+import { replaceElement } from "../../services/replaceElement";
+import { reduceElement } from "../../services/reduceElement";
 
 
 const INITIAL_STATE:ProductState = {
@@ -43,11 +43,11 @@ export const ProductProvider = ({ children }:TypeProps) => {
         })
     }
 
-    const deleteProduct = (id: number) => {
+    const deleteProduct = (id: string) => {
         deleteProductById(id)
         .then(response =>{
             if(response === 1){
-                const result = filterProductDeleted(id, productState.products)
+                const result = reduceElement<Product>(id, productState.products)
                 dispatch({type:"DELETE", payload: result})
             }
         })
@@ -74,7 +74,7 @@ export const ProductProvider = ({ children }:TypeProps) => {
             return response.json()
         })
         .then(response => {
-            const productsUpdated = replaceProduct(response, productState.products)
+            const productsUpdated = replaceElement<Product>(response, productState.products)
             dispatch({type:"GET_ALL_PRODUCTS", payload:productsUpdated})
         })
         .catch(error => console.log(error))
@@ -100,7 +100,7 @@ export const ProductProvider = ({ children }:TypeProps) => {
     const getOneProductById = (productId:number) => {
         getOneProduct(productId)
         .then(response => {
-            const productsUpdated = replaceProduct(response, productState.products)
+            const productsUpdated = replaceElement<Product>(response, productState.products)
             console.log(productsUpdated);
             dispatch({type:"GET_ALL_PRODUCTS", payload: productsUpdated})
         })

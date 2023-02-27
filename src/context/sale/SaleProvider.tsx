@@ -7,7 +7,7 @@ import { postSale } from "../../services/sale/postSale"
 import { ProductContext } from "../product/ProductContext"
 import { updateSaleById } from "../../services/sale/updateSale"
 import { deleteSaleById } from "../../services/sale/deleteSale"
-import { reduceSale } from "../../services/sale/reduceSale"
+import { reduceElement } from "../../services/reduceElement"
 
 interface ProviderProps {
     children: JSX.Element | JSX.Element[]
@@ -62,7 +62,7 @@ export const SaleProvider = ({children}:ProviderProps) => {
                 return response.json()
             })
             .then(() => {
-                const result = reduceSale(String(sale.id), saleState.sales);
+                const result = reduceElement(sale.id, saleState.sales);
                 console.log(result);
                 dispatch({type:"DELETE_SALE", payload: result})
             })

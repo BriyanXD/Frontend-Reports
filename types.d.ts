@@ -1,5 +1,5 @@
 export interface Product{
-    id: number;
+    id: string;
     name: string;
     quantity: number;
     price: number;
@@ -39,12 +39,12 @@ export interface NProduct{
 }
 
 export interface Sale{
-    id: number;
+    id: string;
     quantity: number;
     total: number;
     createdAt: Date;
     creationTime: Date;
-    productId: number;
+    productId: string;
     product?:{
         name:string;
         price:number;

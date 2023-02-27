@@ -1,5 +1,5 @@
 import { Product, Sale, SaleState } from "../../../types";
-import { replaceSale } from "../../services/sale/replaceSale";
+import { replaceElement } from "../../services/replaceElement";
 
 export type SalesActionProps =
     | {type: "GET_ALL_SALES", payload: Sale[]}
@@ -20,7 +20,7 @@ export const SaleReducer = (state:SaleState, action: SalesActionProps): SaleStat
         case "SET_PRODUCT_ID":
             return{...state, product:action.payload}
         case "UPDATE_SALE":
-            return{...state, saleUpdated: action.payload, sales:replaceSale(action.payload, state.sales)}
+            return{...state, saleUpdated: action.payload, sales:replaceElement<Sale>(action.payload, state.sales)}
         case "SET_SALE":
             return{...state, saleSaved:action.payload}
         case "DELETE_SALE":
