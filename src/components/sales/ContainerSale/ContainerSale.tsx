@@ -4,6 +4,7 @@ import SaleContext from "../../../context/sale/SaleContext";
 import CardSale from "../CardSale/CardSale";
 import styles from "./style.module.css"
 import UpdateSale from "../UpdateSale/UpdateSale";
+import { Table } from "../../table/Table";
 
 const ContainerSale =() => {
     const { saleState, getAllSales, saveSale } = useContext(SaleContext)
@@ -18,29 +19,15 @@ const ContainerSale =() => {
             <Modal key="UPDATESALE" id="UPDATESALE" title="Modificar venta">
                 <UpdateSale/>
             </Modal>
-            <table className="table table-hover table-borderless">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">P/unidad</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Configs</th>
-                </tr>
-            </thead>
-            <tbody>
-            {   
-                sales?.map((sale, index) => <CardSale
-                    props={{saveSale}}
-                    index={index + 1}
-                    key={sale?.id}
-                    sale={sale}/>)
-            }
-            </tbody>
-            </table>
+            <Table titles={["#","Product","Cantidad","P/Unidad","Total","Fecha","Hora","Config"]} key="Sales">
+                {   
+                    sales?.map((sale, index) => <CardSale
+                        props={{saveSale}}
+                        index={index + 1}
+                        key={sale?.id}
+                        sale={sale}/>)
+                }
+            </Table>
         </div>
     )
 }

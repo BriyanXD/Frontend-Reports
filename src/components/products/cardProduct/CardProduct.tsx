@@ -28,7 +28,7 @@ const CardProduct = ({product, index, setProductToUpdated, setProductId}: TypePr
                         </button>
                     </td>
                     <td>
-                    <button
+                        <button
                                 className="btn btn-warning"
                                 type="button" value="Modificar"
                                 data-bs-toggle="modal"

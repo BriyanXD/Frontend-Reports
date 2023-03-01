@@ -75,3 +75,18 @@ export interface SaleState {
     saleUpdated: Sale |  null;
     saleSaved: Sale | null;
 }
+
+export interface Inventory {
+    id: number;
+    quantity: number;
+    entryDate: Date;
+    exitDate: Date;
+    destiny: string;
+    storage: string;
+    description: string;
+    productId: string;
+}
+
+export interface InventoryState {
+    inventories: Inventory[];
+}

@@ -10,6 +10,8 @@ import ContainerSale from './components/sales/ContainerSale/ContainerSale'
 import ToolSale from './components/sales/ToolsSale/ToolSale'
 import { SaleProvider } from './context/sale/SaleProvider'
 import Home from './components/home/Home'
+import { ContainerInventory } from './components/inventory/ContainerInvetory/ContainerInvetory'
+import { InventoryProvider } from './context/inventory/InventoryProvider'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -17,6 +19,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Navigation/>
     <ProductProvider>
     <SaleProvider>
+    <InventoryProvider>
+
 
     <Routes>
         <Route path='/' element={
@@ -36,12 +40,20 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <ContainerSale/>
           </>
         }/>
+        <Route path='inventario' element={
+          <>
+            <ContainerInventory/>
+          </>
+        }
+        
+        />
         <Route path='*' element={
           <>
             <h1>Error la ruta no existe</h1>
           </>
         }/>
     </Routes>
+    </InventoryProvider>
     </SaleProvider>
     </ProductProvider>
     </BrowserRouter>
