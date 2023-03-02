@@ -8,7 +8,6 @@ const getAllProducts = ():Promise<Response> => {
 const getOneProduct = (productId:number):Promise<Product> => {
     return fetch(`${URL}/product?productId=${productId}`,{method:"GET"})
     .then(response => {
-        console.log(response, "< Product");
         return response.json()
     })
 }

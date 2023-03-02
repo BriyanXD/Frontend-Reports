@@ -85,8 +85,26 @@ export interface Inventory {
     storage: string;
     description: string;
     productId: string;
+    prod:{
+        name:string;
+        price:number;
+        category:string;
+        quantity:number;
+    }
+}
+
+
+export interface NInventory {
+    quantity: string;
+    entryDate: string;
+    exitDate: string;
+    destiny: string;
+    storage: string;
+    description: string;
+    productId: string;
 }
 
 export interface InventoryState {
     inventories: Inventory[];
+    products: Product[];
 }
