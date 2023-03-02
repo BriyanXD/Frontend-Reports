@@ -19,7 +19,7 @@ export const CardInventory = ({item, index}:TypeProps) => {
                 type="button" value="Vender"
                 data-bs-toggle="modal"
                 data-bs-target="#NEWINVENTORY">
-                    Ver
+                    Editar
             </button>
             </th>
         </tr>

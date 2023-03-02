@@ -12,6 +12,7 @@ import { SaleProvider } from './context/sale/SaleProvider'
 import Home from './components/home/Home'
 import { ContainerInventory } from './components/inventory/ContainerInvetory/ContainerInvetory'
 import { InventoryProvider } from './context/inventory/InventoryProvider'
+import ToolInventory from './components/inventory/ToolsInvetory/ToolsInventory'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -42,6 +43,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }/>
         <Route path='inventario' element={
           <>
+            <ToolInventory/>
             <ContainerInventory/>
           </>
         }
