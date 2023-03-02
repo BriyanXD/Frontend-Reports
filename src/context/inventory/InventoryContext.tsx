@@ -3,7 +3,7 @@ import { createContext } from "react";
 
 export type InventoryContextProps = {
     inventoryState: InventoryState;
-    GetInvontories: () => Promise<Object> ;
+    GetInvontories: () => void ;
     GetProducts: () => void;
     PostInventory: (element:Inventory) => Promise<Object>;
 }

@@ -18,7 +18,9 @@ const INITIAL_STATE:SaleState = {
     newSaleCreated:null,
     product:null,
     saleUpdated: null,
-    saleSaved: null
+    saleSaved: null,
+    loading: false,
+    error: false
 }
 
 export const SaleProvider = ({children}:ProviderProps) => {
@@ -28,9 +30,14 @@ export const SaleProvider = ({children}:ProviderProps) => {
     const { getOneProductById } = useContext(ProductContext)
 
     const getAllSales = () => {
+        dispatch({type:"LOADING",payload:true})
         getSales()
         .then(response => {
             dispatch({type:"GET_ALL_SALES", payload: response.reverse()})})
+        .catch(() => {
+            dispatch({type:"LOADING",payload:false})
+            dispatch({type:"ERROR",payload:true})
+        })
     }
 
     const getSalesByData = ({value, key}:PropsGetSale) => {

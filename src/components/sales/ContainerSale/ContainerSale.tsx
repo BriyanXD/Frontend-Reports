@@ -8,12 +8,12 @@ import { Table } from "../../table/Table";
 
 const ContainerSale =() => {
     const { saleState, getAllSales, saveSale } = useContext(SaleContext)
-    const { sales } = saleState;
+    const { sales, loading, error } = saleState;
 
     useEffect(() => getAllSales(),[])
 
-    /* if(loading) return( <div className="container d-flex justify-content-center bg-success"><h1>Cargando...</h1></div> )
-    if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> ) */
+    if(loading) return( <div className="container d-flex justify-content-center bg-success"><h1>Cargando...</h1></div> )
+    if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> )
     return(
         <div className={`container d-flex flex-column gap-1 ${styles.container}`}>
             <Modal key="UPDATESALE" id="UPDATESALE" title="Modificar venta">

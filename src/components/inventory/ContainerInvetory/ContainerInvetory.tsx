@@ -9,10 +9,12 @@ export const ContainerInventory = () => {
 
 
     const { inventoryState, GetInvontories } = useContext(InventoryContext)
-    const { inventories } = inventoryState;
+    const { inventories, error, loading } = inventoryState;
 
     useEffect(() => {GetInvontories()},[])
-
+    
+    if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> )
+    if(loading) return( <div className="container d-flex justify-content-center bg-success"><h1>Cargando...</h1></div> )
     return(
         <div className="container">
             <Modal id="NEWINVENTORY" title="Crear registro" key="NEWINVENTORY">

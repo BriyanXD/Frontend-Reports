@@ -74,6 +74,8 @@ export interface SaleState {
     product:Product | null;
     saleUpdated: Sale |  null;
     saleSaved: Sale | null;
+    loading:boolean;
+    error:boolean;
 }
 
 export interface Inventory {
@@ -107,4 +109,6 @@ export interface NInventory {
 export interface InventoryState {
     inventories: Inventory[];
     products: Product[];
+    loading: boolean;
+    error: boolean;
 }

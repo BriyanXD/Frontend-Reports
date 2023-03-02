@@ -12,6 +12,8 @@ interface TypeProps{
 const INITIAL_STATE = {
     inventories: [],
     products: [],
+    loading: false,
+    error: false
 }
 
 export const InventoryProvider = ({children}: TypeProps) => {
@@ -19,15 +21,18 @@ export const InventoryProvider = ({children}: TypeProps) => {
     const [inventoryState, dispatch] = useReducer(InventoryReducer, INITIAL_STATE);
 
     const GetInvontories = async() => {
-        let httpResponse = {};
+        dispatch({type:"LOADING",payload:true})
         await fetchGetElements("inventory")
         .then(response => {
-            httpResponse = response
             return response.json();
         })
-        .then(response => dispatch({type:"GET_ALL_INVENTORY", payload: response}))
-        return httpResponse;
-    }
+        .then(response => {
+            dispatch({type:"GET_ALL_INVENTORY", payload: response})})
+        .catch(() => {
+                dispatch({type:"LOADING",payload:false})
+                dispatch({type:"ERRROR",payload:true})
+            })
+        }
 
     const GetProducts = async() => {
         await fetchGetElements("product")

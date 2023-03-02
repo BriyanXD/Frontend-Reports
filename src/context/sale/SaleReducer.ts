@@ -8,13 +8,15 @@ export type SalesActionProps =
     | {type: "UPDATE_SALE", payload: Sale}
     | {type: "SET_SALE", payload: Sale}
     | {type: "DELETE_SALE", payload: Sale[]}
+    | {type: "LOADING", payload: boolean}
+    | {type: "ERROR", payload: boolean}
 
 
 
 export const SaleReducer = (state:SaleState, action: SalesActionProps): SaleState => {
     switch (action.type) {
         case "GET_ALL_SALES":
-            return{...state, sales:action.payload}
+            return{...state, sales:action.payload, loading:false, error: false}
         case "POST_NEW_SALE":
             return{...state, newSaleCreated:action.payload}
         case "SET_PRODUCT_ID":
@@ -25,6 +27,10 @@ export const SaleReducer = (state:SaleState, action: SalesActionProps): SaleStat
             return{...state, saleSaved:action.payload}
         case "DELETE_SALE":
             return{...state, sales:action.payload}
+        case "LOADING":
+            return{...state, loading:action.payload}
+        case "ERROR":
+            return{...state, error:action.payload}
         default:
             return state;
     }
