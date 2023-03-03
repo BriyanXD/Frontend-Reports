@@ -1,26 +1,37 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Modal from "../../modal/Modal";
 import style from "./styles.module.css"
-import { ProductContext } from "../../../context/product/ProductContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass, faFilter } from "@fortawesome/free-solid-svg-icons";
 import NewInventory from "../NewInventory/NewInventory";
+import { InventoryContext } from "../../../context/inventory/InventoryContext";
 
 
 const ToolInventory = () => {
 
     const [word, setWord] = useState("");
 
-     const { searchProducts, filterProducts } = useContext(ProductContext)
+     const {FilterInventories, FilterByName} = useContext(InventoryContext)
+
+     const refDate = useRef<HTMLInputElement>(null);
+     const refOption = useRef<HTMLSelectElement>(null);
 
 
     const handleChangeinputSearch = (event:React.ChangeEvent<HTMLInputElement>) => setWord(event.target.value)
-    const handleChangeOptionCategories = (event:React.ChangeEvent<HTMLSelectElement>) => filterProducts(event.target.value)
-    const handleChangeDateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {}
+    const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        
+        const date = refDate?.current?.value;
+        const type = refOption?.current?.value;
+
+        console.log(date);
+        console.log(type);        
+
+        FilterInventories(String(type), String(date))
+    }
     const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        searchProducts(word)
+        FilterByName(word)
     }
 
     return(
@@ -33,14 +44,14 @@ const ToolInventory = () => {
                 </button>
                 <div className="input-group w-50 ">
                     <span className="input-group-text border border-primary" id="addon-wrapping"><FontAwesomeIcon icon={faFilter}/></span>
-                    <select className="form-select border border-primary" aria-label="Default select example" name="category" onChange={handleChangeOptionCategories}>
+                    <select className="form-select border border-primary" aria-label="Default select example" name="category" onChange={handleChangeSearch} ref={refOption}>
                         <option value="all">Todos</option>
-                        <option value="entrada">Entradas</option>
-                        <option value="salida">Salidas</option>
+                        <option value="entryDate">Entradas</option>
+                        <option value="exitDate">Salidas</option>
                     </select>
                 </div>
                 <form className="d-flex gap-2" role="search">
-                   <input className="form-control border border-primary"  type="date" aria-label="Search" onChange={handleChangeDateSearch}/>
+                   <input className="form-control border border-primary" ref={refDate} type="date" aria-label="Search" onChange={handleChangeSearch}/>
                </form>
                 <form className="d-flex gap-2" role="search" onSubmit={handleSubmitForm}>
                     <input className="form-control border border-primary"  type="search" placeholder="Buscar..." aria-label="Search" onChange={handleChangeinputSearch}/>

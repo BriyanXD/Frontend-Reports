@@ -4,6 +4,7 @@ type InventoryActions =
     |{type: "GET_ALL_INVENTORY", payload: Inventory[]}
     |{type: "GET_ALL_PRODUCTS", payload: Product[]}
     |{type: "POST_ONE_INVENTORY", payload: Inventory}
+    |{type: "FILTER_INVENTORIES", payload: Inventory[]}
     |{type: "LOADING", payload: boolean}
     |{type: "ERRROR", payload: boolean}
 
@@ -15,6 +16,8 @@ export const InventoryReducer = (state: InventoryState, action: InventoryActions
             return{...state, inventories: action.payload, loading:false, error: false}
         case "GET_ALL_PRODUCTS":
             return{...state, products: action.payload}
+        case "FILTER_INVENTORIES":
+            return{...state, inventories: action.payload}
         case "POST_ONE_INVENTORY":
             return{...state, inventories: [action.payload, ...state.inventories]}
         case "LOADING":
