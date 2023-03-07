@@ -79,7 +79,7 @@ export interface SaleState {
 }
 
 export interface Inventory {
-    id: number;
+    id: string;
     quantity: number;
     entryDate: Date;
     exitDate: Date;
@@ -111,4 +111,5 @@ export interface InventoryState {
     products: Product[];
     loading: boolean;
     error: boolean;
+    inventory: Inventory | null;
 }

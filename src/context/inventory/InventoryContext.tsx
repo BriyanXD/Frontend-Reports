@@ -7,7 +7,8 @@ export type InventoryContextProps = {
     GetProducts: () => void;
     PostInventory: (element:Inventory) => Promise<Object>;
     FilterInventories: (type:string, date:string) => void
-    FilterByName: (name:string) => void
+    FilterByName: (name:string) => void;
+    SetInventory: (inventory:Inventory) => void
 }
 
 export const InventoryContext = createContext<InventoryContextProps>({} as InventoryContextProps)

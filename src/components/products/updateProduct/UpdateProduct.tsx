@@ -15,7 +15,7 @@ const UpdateProduct = () => {
     },[productForUpdate])
 
     const initialState:Product = {
-        id:0,
+        id:"",
         name:"",
         price:0,
         quantity:0,
@@ -99,7 +99,7 @@ const UpdateProduct = () => {
             <div className="card">
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Guardar" disabled={loading}/>
-                    <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(Number(formData?.id))} disabled/>
+                    <input type="button" className="btn btn-outline-danger" value="Eliminar" onClick={() => deleteProduct(formData?.id)} disabled/>
                     <button type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onClick={() => setProductToUpdated({} as Product)}>Cerrar</button>
                 </div>
             </div>

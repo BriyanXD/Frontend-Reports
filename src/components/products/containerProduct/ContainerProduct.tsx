@@ -15,6 +15,7 @@ const ContainerProduct = () => {
     const { products, error, loading } = productState;
 
     useEffect(() => {getProducts()},[])
+    
 
     if(loading) return( <div className="container d-flex justify-content-center bg-success"><h1>Cargando...</h1></div> )
     if(error) return( <div className="container d-flex justify-content-center bg-danger"><h1>Error</h1></div> )

@@ -3,9 +3,10 @@ import { Inventory } from "../../../../types"
 interface TypeProps {
     item: Inventory,
     index: number;
+    setInventory: (inventory:Inventory) => void
 }
 
-export const CardInventory = ({item, index}:TypeProps) => {
+export const CardInventory = ({item, index, setInventory}:TypeProps) => {
     return (
         <tr>
             <th>{index}</th>
@@ -18,7 +19,8 @@ export const CardInventory = ({item, index}:TypeProps) => {
                 className="btn btn-primary"
                 type="button" value="Vender"
                 data-bs-toggle="modal"
-                data-bs-target="#NEWINVENTORY">
+                data-bs-target="#UPDATEINVENTORY"
+                onClick={() => setInventory(item)}>
                     Editar
             </button>
             </th>

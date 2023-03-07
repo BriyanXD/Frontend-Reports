@@ -1,4 +1,7 @@
+import { useEffect } from "react";
+
 const Home = () => {
+
     return(
         <div className="container">
             <div className="card mb-3">

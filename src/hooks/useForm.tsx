@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 export const useForm = <T extends Object>(initState: T, validateForm:Function, warningsForm?: Function) => {
 
-    const [formData, setFormData] = useState(initState);
+    const [formData, setFormData] = useState<T>(initState);
     const [errors, setErrors] = useState({} as  T);
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(false);

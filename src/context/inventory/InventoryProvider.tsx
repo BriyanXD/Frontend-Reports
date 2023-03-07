@@ -14,7 +14,8 @@ const INITIAL_STATE = {
     inventories: [],
     products: [],
     loading: false,
-    error: false
+    error: false,
+    inventory: null
 }
 
 export const InventoryProvider = ({children}: TypeProps) => {
@@ -64,8 +65,10 @@ export const InventoryProvider = ({children}: TypeProps) => {
         return httpResponse
     }
 
+    const SetInventory = (inventory:Inventory) => dispatch({type:"SET_INVENTORY" , payload:inventory})
+
     return(
-        <InventoryContext.Provider value={{inventoryState, GetInvontories, GetProducts, PostInventory, FilterInventories, FilterByName}}>
+        <InventoryContext.Provider value={{inventoryState, GetInvontories, GetProducts, PostInventory, FilterInventories, FilterByName, SetInventory}}>
             {children}
         </InventoryContext.Provider>
     )
