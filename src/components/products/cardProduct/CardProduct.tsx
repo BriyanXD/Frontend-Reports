@@ -29,7 +29,7 @@ const CardProduct = ({product, index, setProductToUpdated, setProductId}: TypePr
                     </td>
                     <td>
                         <button
-                                className="btn btn-warning"
+                                className="btn btn-success"
                                 type="button" value="Modificar"
                                 data-bs-toggle="modal"
                                 data-bs-target="#UPDATEPRODUCT"

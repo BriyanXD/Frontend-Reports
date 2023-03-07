@@ -1,4 +1,6 @@
-import { Inventory } from "../../../../types"
+import { Inventory } from "../../../../types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface TypeProps {
     item: Inventory,
@@ -16,12 +18,12 @@ export const CardInventory = ({item, index, setInventory}:TypeProps) => {
             <th>{item?.destiny}</th>
             <th>
             <button
-                className="btn btn-primary"
+                className="btn btn-success"
                 type="button" value="Vender"
                 data-bs-toggle="modal"
                 data-bs-target="#UPDATEINVENTORY"
                 onClick={() => setInventory(item)}>
-                    Editar
+                    <FontAwesomeIcon icon={faPenToSquare}/>
             </button>
             </th>
         </tr>

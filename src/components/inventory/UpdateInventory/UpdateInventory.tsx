@@ -7,7 +7,7 @@ import { Message } from "../../messages/Message";
 
 const UpdateInventory = () => {
 
-    const { GetProducts, inventoryState , PostInventory} = useContext(InventoryContext);
+    const { GetProducts, inventoryState, UpdateInventory} = useContext(InventoryContext);
     const { inventory } = inventoryState
 
     useEffect(() => {GetProducts()},[])
@@ -30,7 +30,7 @@ const UpdateInventory = () => {
 
 
     return(
-        <form className="d-flex flex-column gap-2" onSubmit={e => handleSubmit(e, PostInventory)}>
+        <form className="d-flex flex-column gap-2" onSubmit={e => handleSubmit(e, UpdateInventory)}>
             <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">Producto</span>
                 <input type="text" className="form-control" placeholder="product" aria-label="quantity" aria-describedby="addon-wrapping" value={formData?.prod?.name} name="quantity" onChange={handleChange} onBlur={handleBlur} disabled/>

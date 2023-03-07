@@ -1,9 +1,9 @@
 import { URL } from "../config"
 
-export const fetchPostElement = <T extends Object>(route:string, element:T):Promise<Response> => {
+export const fetchPostElement = <T extends Object>(route:string, element:T, meth?:string):Promise<Response> => {
     console.log(element);
     return fetch(`${URL}/${route}`,{
-    method:"POST",
+    method: meth,
     body: JSON.stringify(element),
     headers:{'Content-Type': 'application/json',
 }})
