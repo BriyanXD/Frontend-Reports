@@ -9,7 +9,7 @@ type InventoryActions =
     |{type: "ERRROR", payload: boolean}
     |{type: "SET_INVENTORY", payload: Inventory}
     |{type: "PUT_INVENTORY", payload: Inventory[]}
-
+    |{type: "DELTE_INVENTORY", payload: Inventory[]}
 
 export const InventoryReducer = (state: InventoryState, action: InventoryActions):InventoryState => {
     switch (action.type) {
@@ -28,6 +28,8 @@ export const InventoryReducer = (state: InventoryState, action: InventoryActions
         case "SET_INVENTORY":
             return{...state, inventory: action.payload}
         case "PUT_INVENTORY":
+            return{...state, inventories: action.payload}
+        case "DELTE_INVENTORY":
             return{...state, inventories: action.payload}
         default:
             return state;

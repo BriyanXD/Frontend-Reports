@@ -6,6 +6,8 @@ import { filterinventoriesByDate, filterInventoriesByName } from "../../services
 import { InventoryContext } from "./InventoryContext"
 import { InventoryReducer } from "./InventoryReducer"
 import { replaceElement } from "../../services/replaceElement"
+import { deleteElement } from "../../services/deleteElement"
+import { reduceElement } from "../../services/reduceElement"
 
 interface TypeProps{
     children: JSX.Element[] | JSX.Element
@@ -58,7 +60,7 @@ export const InventoryProvider = ({children}: TypeProps) => {
 
     const PostInventory = async(element: Inventory) => {
         let httpResponse = {};
-        await fetchPostElement<Inventory>("inventory", element)
+        await fetchPostElement<Inventory>("inventory", element, "POST")
         .then(response => {
             httpResponse = response;
             return response.json();})
@@ -79,8 +81,22 @@ export const InventoryProvider = ({children}: TypeProps) => {
 
     const SetInventory = (inventory:Inventory) => dispatch({type:"SET_INVENTORY" , payload:inventory})
 
+    const DeleteInventory = async() => {
+        let httpResponse = {};
+        const { id } = inventoryState?.inventory as Inventory
+        await deleteElement("inventory",String(id))
+        .then(response => {
+            httpResponse = response;
+            return response.json();
+        })
+        .then(() => {
+            dispatch({type:"DELTE_INVENTORY", payload: reduceElement(id, inventoryState.inventories)})
+        })
+        return httpResponse;
+    }
+
     return(
-        <InventoryContext.Provider value={{inventoryState, GetInvontories, GetProducts, PostInventory, FilterInventories, FilterByName, SetInventory, UpdateInventory}}>
+        <InventoryContext.Provider value={{inventoryState, GetInvontories, GetProducts, PostInventory, FilterInventories, FilterByName, SetInventory, UpdateInventory, DeleteInventory}}>
             {children}
         </InventoryContext.Provider>
     )

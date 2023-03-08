@@ -1,13 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Inventory, NInventory } from "../../../../types";
 import { InventoryContext } from "../../../context/inventory/InventoryContext";
 import { useForm } from "../../../hooks/useForm";
 import { Message } from "../../messages/Message";
 
+type typesMessage = "delete" | "submit";
 
 const UpdateInventory = () => {
 
-    const { GetProducts, inventoryState, UpdateInventory} = useContext(InventoryContext);
+    const { GetProducts, inventoryState, UpdateInventory, DeleteInventory} = useContext(InventoryContext);
     const { inventory } = inventoryState
 
     useEffect(() => {GetProducts()},[])
@@ -23,14 +24,28 @@ const UpdateInventory = () => {
 
         return errors
     }
+
+    const messagesTexts = {
+        submit : {
+            loading: "Guardando, espere...",
+            error: "Error al guardar, intenta nuevamente.",
+            response: "El registro fue actualizado con exito." 
+        },
+        delete : {
+            loading: "Eliminado, espere...",
+            error: "Error al eliminar, intenta nuevamente.",
+            response: "El registro fue eliminado." 
+        }
+    }
+    const [type, setType] = useState<typesMessage>("submit");
     
-    const {formData, handleChange, handleSubmit, handleBlur, clearForm, response, error, errors, loading, setFormData} = useForm<Inventory>(inventory as Inventory,validationsForm)
+    const {formData, handleChange, handleSubmit, handleBlur, clearForm, response, error, errors, loading, setFormData, handleClick} = useForm<Inventory>(inventory as Inventory,validationsForm)
 
     useEffect(() => {setFormData(inventory as Inventory)},[inventory])
 
 
     return(
-        <form className="d-flex flex-column gap-2" onSubmit={e => handleSubmit(e, UpdateInventory)}>
+        <form className="d-flex flex-column gap-2" onSubmit={e => {setType("submit");handleSubmit(e, UpdateInventory)}}>
             <div className="input-group flex-nowrap">
                 <span className="input-group-text" id="addon-wrapping">Producto</span>
                 <input type="text" className="form-control" placeholder="product" aria-label="quantity" aria-describedby="addon-wrapping" value={formData?.prod?.name} name="quantity" onChange={handleChange} onBlur={handleBlur} disabled/>
@@ -64,13 +79,15 @@ const UpdateInventory = () => {
                 <span className="input-group-text" id="addon-wrapping">Descripcion</span>
                 <input type="text" className="form-control" placeholder="description" aria-label="description" aria-describedby="addon-wrapping" name="description" value={formData?.description} onChange={handleChange}/>
             </div>
-            {loading && <Message bg="bg-primary" message="Creando producto espere..." text="text-white"/>}
-            {response && <Message bg="bg-success" message="Producto creado." text="text-white"/>}
-            {error && <Message bg="bg-danger" message="Error al crear producto intenta nuevamente." text="text-white"/>}
+            {loading && <Message bg="bg-primary" message={messagesTexts[type].loading} text="text-white"/>}
+            {error && <Message bg="bg-danger" message={messagesTexts[type].error} text="text-white"/>}
+            {response && <Message bg="bg-success" message={messagesTexts[type].response} text="text-white"/>}
             <div className="card">
                 <div className="card-body d-flex justify-content-around">
                     <input type="submit" className="btn btn-primary" value="Agregar" disabled={loading}/>
-                    <input type="button" value="Eliminar" className="btn btn-outline-success" onClick={clearForm} disabled/>
+                    <input type="button" value="Eliminar" className="btn btn-outline-success" onClick={e => {
+                                                                                                    setType("delete")
+                                                                                                    handleClick(e, DeleteInventory)}} disabled={loading}/>
                     <input type="button" className="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" value="Cerrar" onClick={clearForm} disabled={loading}/>
                 </div>
             </div>
