@@ -9,16 +9,11 @@ interface TypeProps {
 export default function Protected({children}:TypeProps) {
 
     const [isAuth, setAuth] = useState<string | null>(null);
-    const {user, loginWithRedirect} = useAuth0()
+    const {user} = useAuth0()
 
     useEffect(() => {
-        if(window.localStorage.getItem("user") !== "undefined" && !user){
-            loginWithRedirect();
-        }
-        if(window.localStorage.getItem("user") && user){
-            setAuth(window.localStorage.getItem("user"))
-        }
-    },[isAuth])
+        setAuth(window.localStorage.getItem("user"));
+    },[user])
 
     if( !isAuth ) return <Navigate to="/"/> 
     return <>{children}</>
