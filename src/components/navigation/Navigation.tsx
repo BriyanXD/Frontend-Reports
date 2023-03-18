@@ -9,7 +9,6 @@ const Navigation = () => {
 
   const [date, setDate] = useState<string>("")
   useEffect(() => {
-    console.log(user);
     const date = new Date()
     const dateNow =`[ ${date.getDay()} / ${date.getDate()} / ${date.getFullYear()} ]`
     setDate(dateNow)
@@ -18,6 +17,12 @@ const Navigation = () => {
   type PropsStyles = {
     isActive:boolean
   }
+
+  useEffect(() => {
+    if(!window.localStorage.getItem("user") || window.localStorage.getItem("user") === "undefined"){
+      window.localStorage.setItem("user",JSON.stringify(user))
+    }
+  },[user]) 
 
 
   const styleNavLink = ({isActive}:PropsStyles):string => isActive ? "nav-link text-primary" : "nav-link";
@@ -50,7 +55,10 @@ const Navigation = () => {
           <div>
           </div>
           {!isAuthenticated ? <button className="btn btn-outline-success" onClick={() => loginWithRedirect()}>Login</button>:
-            <button className="btn btn-outline-success" onClick={() => logout()}>{user?.given_name}</button>
+            <button className="btn btn-outline-success" onClick={() =>{
+              logout()
+              window.localStorage.setItem("user",JSON.stringify(undefined));
+            }}>{user?.given_name}</button>
           }
         </div>
       </nav>
