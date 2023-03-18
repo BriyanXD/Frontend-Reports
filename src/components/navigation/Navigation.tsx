@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import styles from "./Navigation.module.css"
 
 const Navigation = () => {
 
@@ -23,7 +24,7 @@ const Navigation = () => {
   
   
     return(
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className={`navbar navbar-expand-lg ${styles.navcontainer}`}>
         <div className="container-fluid">
             <Link className="navbar-brand" to="/">{date}</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
