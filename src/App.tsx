@@ -21,20 +21,17 @@ export default function App() {
 
 
   return (
-    
     <Auth0Provider 
     domain={VITE_AUTH0_DOMAIN}
     clientId={VITE_CLIENTEID}
     authorizationParams={{
       redirect_uri: window.location.origin
     }}>
-
     <BrowserRouter>
     <ProductProvider>
     <SaleProvider>
     <InventoryProvider>
       <Navigation/>
-      
     <Routes>
         <Route path='/' element={
           <>
@@ -58,9 +55,7 @@ export default function App() {
             <ToolInventory/>
             <ContainerInventory/>
           </Protected>
-        }
-        
-        />
+        }/>
         <Route path='*' element={
           <>
             <h1>Error la ruta no existe</h1>
