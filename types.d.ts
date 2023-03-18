@@ -113,3 +113,8 @@ export interface InventoryState {
     error: boolean;
     inventory: Inventory | null;
 }
+
+export interface User {
+    username: string;
+    password: string;
+}

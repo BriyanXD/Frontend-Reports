@@ -6,7 +6,6 @@ import { ProductContext } from "../../../context/product/ProductContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass, faFilter } from "@fortawesome/free-solid-svg-icons";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const ToolProduct = () => {
 
@@ -21,10 +20,8 @@ const ToolProduct = () => {
         event.preventDefault();
         searchProducts(word)
     }
-    const {isAuthenticated} = useAuth0()
 
     
-    if(!isAuthenticated) return <></>
     return(
         <div className={`container d-flex justify-content-evenly align-items-center ${style.container} flex-wrap`}>
                 <button type="button" className="btn btn-primary"

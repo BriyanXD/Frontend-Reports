@@ -6,7 +6,6 @@ import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass, faFilter } from "@fortawesome/free-solid-svg-icons";
 import NewInventory from "../NewInventory/NewInventory";
 import { InventoryContext } from "../../../context/inventory/InventoryContext";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const ToolInventory = () => {
 
@@ -33,10 +32,8 @@ const ToolInventory = () => {
         event.preventDefault();
         FilterByName(word)
     }
-    const {isAuthenticated} = useAuth0()
 
     
-    if(!isAuthenticated) return <></>
     return(
         <div className={`container d-flex justify-content-evenly align-items-center ${style.container} flex-wrap`}>
                 <button type="button"
