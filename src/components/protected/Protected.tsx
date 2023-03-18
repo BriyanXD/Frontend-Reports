@@ -8,13 +8,8 @@ interface TypeProps {
 
 export default function Protected({children}:TypeProps) {
 
-    const [isAuth, setAuth] = useState<string | null>(null);
     const {user} = useAuth0()
 
-    useEffect(() => {
-        setAuth(window.localStorage.getItem("user"));
-    },[user])
-
-    if( !isAuth ) return <Navigate to="/"/> 
+    if(!user) return <Navigate to="/"/> 
     return <>{children}</>
 }

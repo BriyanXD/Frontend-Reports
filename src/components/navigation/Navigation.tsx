@@ -18,12 +18,6 @@ const Navigation = () => {
     isActive:boolean
   }
 
-  useEffect(() => {
-    if(!window.localStorage.getItem("user") || window.localStorage.getItem("user") === "undefined"){
-      window.localStorage.setItem("user",JSON.stringify(user))
-    }
-  },[user]) 
-
 
   const styleNavLink = ({isActive}:PropsStyles):string => isActive ? "nav-link text-primary" : "nav-link";
   
@@ -35,7 +29,7 @@ const Navigation = () => {
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          {isAuthenticated &&
+          { user &&
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">

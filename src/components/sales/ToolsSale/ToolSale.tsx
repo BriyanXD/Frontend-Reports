@@ -5,7 +5,6 @@ import NewProduct from "../../products/newProduct/NewProduct";
 import style from "./style.module.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faFilter } from "@fortawesome/free-solid-svg-icons";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const ToolSale = () => {
     const [word, setWord] = useState("");
@@ -20,10 +19,8 @@ const ToolSale = () => {
         event.preventDefault()
         getSalesByData({value:word,key:"name"})
     }
-    const {isAuthenticated} = useAuth0()
 
     
-    if(!isAuthenticated) return <></>
    return(
        <div className={`container d-flex justify-content-evenly align-items-center ${style.container}`}>
                <div className="input-group w-50">
