@@ -56,7 +56,7 @@ export const useForm = <T extends Object>(initState: T, validateForm:Function, w
             let response = await callback(formData);
             setLoading(false)
             setWarinings({} as T)
-            if(response.statusText === "OK"){
+            if(response.statusText === "OK" || response.status === 200){
                 setResponse(true)
                 setTimeout(() => setResponse(false),5000)
             }
