@@ -4,8 +4,3 @@
     backdrop-filter: blur( 17.5px );
     -webkit-backdrop-filter: blur( 17.5px );
 }
-.content{
-    background: #EEF0F4;
-    border-radius: 1%;
-    box-shadow: inset 15.92px 15.92px 10px #CACCCF, inset -15.92px -15.92px 10px #FFFFFF;
-}
